@@ -45,7 +45,6 @@
                 <artifactId>fabric3-itest-plugin</artifactId>
                 <version>${fabric3.version}</version>
                 <configuration>
-                    <errorText>Cannot promote a 0..1 or 1..1 non-overridable reference: Reference1</errorText>
                     <runtimeVersion>${fabric3.version}</runtimeVersion>
                     <profiles>
                         <profile>
