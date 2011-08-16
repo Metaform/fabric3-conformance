@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!--
+ Tests that where a contribution contains an <import/> declaration with a specific target contribution which refers 
+ to the namespace of a referenced artifact and the artifact is neither present in the target contribution nor the 
+ original contribution, that the resolution fails and the SCA runtime reports an error even where that artifact 
+ is available in other contributions
+-->
+<!--
+ This composite uses test2:TestComposite68.
+ The Contribution containing TEST_ASM_12011 has an import statement for the test2 namespace which explicitly
+ references the Contribution2 contribution by name.
+ Contribution2 does not contain TestComposite68.  Neither does ASM_12011 contribution.
+ Contribution General does contain TestComposite68 and is one of the contributions loaded by the testcase, but
+ there are no import statements for the test2 namespace from the General contribution, so it is expected that 
+ SCA resolution will not find TestComposite68
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test2="http://docs.oasis-open.org/ns/opencsa/scatests/2009032"
+           name="TEST_ASM_12011">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+			<binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" >
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </reference>
+        <property name="testName">ASM_12011</property>
+    </component>
+
+    <component name="TestComponent1">
+    	<!-- Uses a composite as implementation for which there is an import from a second contribution
+    	     but this target composite is not present in that second contribution or in the contribution
+    	     containing TEST_ASM_12011, although it is present in other contributions in the domain and
+    	     exported by them 
+    	-->
+		<implementation.composite name="test2:TestComposite68"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+    </component>
+
+</composite>

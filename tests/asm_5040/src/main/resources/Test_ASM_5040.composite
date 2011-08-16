@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+ Tests that where a component <reference/> of multiplicity 1..1 has @nonOverridable="true", 
+ that the reference is not promoted by a composite reference
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="TEST_ASM_5040">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TEST_ASM_5040Component1/Service1" />
+        <property name="testName">ASM_5040</property>
+    </component>
+    
+    <component name="TEST_ASM_5040Component1">
+        <!-- Composite which has a composite reference which promotes a component reference with multiplicity 1..1
+             but which also has @nonOverridable="true" set (which is invalid) -->
+		<implementation.composite name="test:TestComposite74"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+        <reference name="Reference1" target="TEST_ASM_5040Component2/Service1"/>
+    </component>
+    
+    <component name="TEST_ASM_5040Component2">
+		<implementation.composite name="test:TestComposite1"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service2</property>
+    </component>
+    
+</composite>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- sca-contribution for testcase ASM_12008 -->
+<contribution 
+	xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+	xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903">
+
+	<import namespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"/>
+	<!-- The test is set up so that the artifact in namespace http://docs.oasis-open.org/ns/opencsa/scatests/2009032 is present in an
+	     exporting contribution but also present in this importing contribution, but that the version of the 
+	     artifact in the exporting contribution is invalid and will cause the testcase to fail.
+	-->
+	<import namespace="http://docs.oasis-open.org/ns/opencsa/scatests/2009032"/>	<!-- Contributions namespace -->
+	<import namespace="http://test.sca.oasisopen.org/"/> 							<!-- WSDL namespace -->	
+	
+</contribution>

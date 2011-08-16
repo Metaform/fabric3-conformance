@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- Tests that the @name attribute of an <implementation.composite/> element is the 
+     QName of a <composite/> in the SCA Domain  -->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:tns="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:foo="http://random/namespace"
+           name="TEST_ASM_6024">
+           
+    <component name="TestClient">
+		<implementation.composite name="tns:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" />
+        <property name="testName">ASM_6023</property>
+    </component>
+    
+    <!-- Component implemented by a composite where the name attribute is
+         NOT the QName of some composite in the Domain -->
+    <component name="TestComponent1">
+		<implementation.composite name="foo:Invalid_Name_A"/>
+		<service name="Service1"/>
+        <property name="serviceName">service1</property>
+    </component> 
+    
+</composite>

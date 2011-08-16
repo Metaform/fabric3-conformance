@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- Tests that a <component/> <reference/> with @autowire=true is wired 
+     to a <component/> <service/> with an interface which is a compatible 
+     superset of the interface on the <reference/> in the same <composite/>   -->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:tns="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TEST_ASM_6014">
+           
+    <component name="TestClient">
+		<implementation.composite name="tns:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" />
+        <property name="testName">ASM_6014</property>
+    </component>
+    
+    <!-- Component which uses a composite which has a <component/> with a <reference/> 
+         element which has @autowire=true and where there is a <component/>
+         <service/> in the same composite which has an interface which is a 
+         compatible superset of the interface on the <reference/> -->
+    <component name="TestComponent1">
+		<implementation.composite name="tns:TestComposite28"/>
+		<service name="Service1"/>
+        <property name="serviceName">service1</property>
+    </component> 
+    
+</composite>

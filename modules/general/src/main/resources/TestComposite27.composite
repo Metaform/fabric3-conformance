@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+	Composite which has
+	1 service
+	0 references
+	<component/> with a <reference/> element which has @autowire=true and where there is a compatible 
+	<component/> <service/> in the same composite  
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TestComposite27">
+           
+	<service name="Service1" promote="TestComposite27TestComponent1/Service1">
+		<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+	</service>
+
+    <property name="serviceName" type="xsd:string"/>
+     
+    <component name="TestComposite27TestComponent1">
+		<implementation.composite name="test:TestComposite4"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName" source="$serviceName"/>
+        <reference name="Reference1" autowire="true">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </reference>
+    </component>
+    
+    <component name="TestComposite27TestComponent2">
+		<implementation.composite name="test:TestComposite1"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">third</property>
+    </component>
+    
+</composite>

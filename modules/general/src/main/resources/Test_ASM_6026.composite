@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+Tests that when a @promote attribute of a <composite/> <reference/> has a URI for a <component/> <reference/> 
+that is present in a <composite> which is referenced through an <include/> element in the first <composite/> 
+and also when a @promote attribute of a <composite/> <service/> has a URI for a <component/> <service/> present 
+in the same included <composite/> then the promotions succeed and the <component/> <service/> can be invoked and 
+the <component/> is able to invoke the reference 
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TEST_ASM_6026">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" />
+        <property name="testName">ASM_6026</property>
+    </component>
+    
+    <!-- Component implemented by a composite which has a composite <reference/>
+         which references a <component/> <reference/> which is included into the
+         composite through an <include/> element -->
+    <component name="TestComponent1">
+		<implementation.composite name="test:TestComposite35"/>
+		<service name="Service1"/>
+        <property name="serviceName">service1</property>
+	    <reference name="Reference1" target="TestComponent2/Service1">
+	        <interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+	    </reference>     
+    </component> 
+    
+    <component name="TestComponent2">
+		<implementation.composite name="test:TestComposite1"/>
+		<service name="Service1"/>
+        <property name="serviceName">service2</property>
+    </component>     
+    
+</composite>

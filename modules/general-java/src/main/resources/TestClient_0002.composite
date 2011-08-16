@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!--
+	Client interface composite, offering:
+	TestInvocation service interface via a Web service
+	reference "reference1" with multiplicity 1..1 using the Service1 interface
+	- the reference1 service is invoked once when the TestInvocation service is invoked 
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:tns="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:sample="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TestClient_0002">
+
+	<service name="TestInvocation" promote="TestClient_0002TestClient/TestInvocation">
+		<interface.java interface="org.oasisopen.sca.test.TestInvocation"/>
+	</service>
+	
+	<property name="testName" type="xsd:string"/>
+           
+    <component name="TestClient_0002TestClient">
+		<implementation.java class="org.oasisopen.sca.test.ASM_0002_Client"/>
+		<service name="TestInvocation">
+			<interface.java interface="org.oasisopen.sca.test.TestInvocation"/>
+		</service>
+        <reference name="reference1">
+        	<interface.java interface="org.oasisopen.sca.test.Service1"/>
+        </reference>
+        <property name="testName" source="$testName"/>
+    </component>
+    
+    <reference name="reference1" promote="TestClient_0002TestClient/reference1" multiplicity="1..1">
+    	<interface.java interface="org.oasisopen.sca.test.Service1"/>
+    </reference>
+
+</composite>

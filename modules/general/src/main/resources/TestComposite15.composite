@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+	Composite which has
+	1 service which is configured with multiple explicit bindings
+	0 references
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TestComposite15">
+           
+	<service name="Service1" promote="TestComposite15Component1/Service1">
+		<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+		<binding.sca/>
+		<binding.ws name="binding2"/>
+	</service>
+
+    <property name="serviceName" type="xsd:string"/>
+ 
+    <component name="TestComposite15Component1">
+		<implementation.composite name="test:TestComposite1"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName" source="$serviceName"/>
+    </component>
+
+</composite>

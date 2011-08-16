@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- sca-contribution for ASM_5010 -->
+<contribution 
+	xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+	xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903">
+
+	<import namespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"/>	<!-- Contributions namespace -->
+	<import namespace="http://test.sca.oasisopen.org/"/> 						<!-- WSDL namespace -->	
+	
+</contribution>

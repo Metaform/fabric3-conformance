@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+ Tests that when a component<reference/> element has a @target attribute containing a single target 
+ in the form "component-name/service-name" and the component with the name "component-name" has 
+ multiple services, each of which are compatible with the reference, but none of them has the name 
+ "service-name", that the reference is not wired to any service and the SCA runtime raises an error
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:tns="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="TEST_ASM_6036">
+           
+    <component name="TestClient">
+		<implementation.composite name="tns:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TEST_ASM_6036Component1/ServiceZ" />
+        <property name="testName">ASM_6036</property>
+    </component>
+    
+    <!-- Component that offers multiple services all of which are compatible with the reference
+         TestClient/reference1 -->
+    <component name="TEST_ASM_6036Component1">
+		<implementation.composite name="tns:TestComposite75"/>
+        <service name="ServiceA">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <service name="ServiceB">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+        <service name="ServiceC">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>        
+    </component> 
+    
+</composite>

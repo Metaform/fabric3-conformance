@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ASCII"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+Definitions file containing:
+	2 intent definitions
+	2 policySet definitions
+	external attachments for the policy sets
+-->
+<definitions 	xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+				xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" 
+				xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+				targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903">
+
+   <!-- A user-defined intent for the purposes of testing the intent resolution mechanism  -->
+   <intent name="Fred" constrains="sca:binding" intentType="interaction"/>
+
+   <!-- A user-defined intent mutually exclusive with the sca:confidentiality intent  -->
+   <intent name="Joe" constrains="sca:binding" intentType="interaction" excludes="sca:confidentiality"/>
+      
+   <!-- A policySet which claims to satisfy the user-defined intent "Fred" -->
+   <policySet name="PolicySet1" provides="test:Fred" appliesTo="//service|//reference">
+      <!-- This policySet intentionally left empty -->
+      <!-- ...it is valid for a policySet to contain no concrete policy statements -->
+   </policySet>
+   
+   <!-- A policySet which claims to satisfy the user-defined intent "Joe" -->
+   <policySet name="PolicySet2" provides="test:Joe sca:confidentiality" appliesTo="//service|//reference">
+      <!-- This policySet intentionally left empty -->
+      <!-- ...it is valid for a policySet to contain no concrete policy statements -->
+   </policySet>   
+   
+   <externalAttachment policySets="test:PolicySet1" attachTo="//sca:reference[IntentRefs('Fred')]"/>
+   <externalAttachment policySets="test:PolicySet1" attachTo="//sca:service[IntentRefs('Fred')]"/>
+   <externalAttachment policySets="test:PolicySet2" attachTo="//sca:service[IntentRefs('Joe')]"/>
+   
+</definitions>

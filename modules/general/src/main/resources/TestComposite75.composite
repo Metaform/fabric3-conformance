@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!--
+	3 services, with a remotable interface type=Service1 - each with a different name
+    0 references
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TestComposite75">
+           
+	<service name="ServiceA" promote="TestComposite75Component1/Service1">
+		<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+	</service>
+	
+	<service name="ServiceB" promote="TestComposite75Component2/Service1">
+		<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+	</service>
+	
+	<service name="ServiceC" promote="TestComposite75Component3/Service1">
+		<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+	</service>
+
+    <property name="serviceName" type="xsd:string"/>
+ 
+    <component name="TestComposite75Component1">
+		<implementation.composite name="test:TestComposite1"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">serviceA</property>
+    </component>
+
+    <component name="TestComposite75Component2">
+		<implementation.composite name="test:TestComposite1"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">serviceB</property>
+    </component>
+
+    <component name="TestComposite75Component3">
+		<implementation.composite name="test:TestComposite1"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">serviceC</property>
+    </component>
+</composite>

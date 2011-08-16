@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+	Composite with
+	1 service with Service4 interface which modifies the input parameter
+    0 references 
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TestComposite52">
+           
+	<service name="Service1" promote="Composite52Component1/Service4">
+		<interface.java interface="org.oasisopen.sca.test.Service4"/>
+	</service>
+
+    <property name="serviceName" type="xsd:string"/>
+ 
+    <component name="Composite52Component1">
+		<implementation.java class="org.oasisopen.sca.test.Service4Impl"/>
+        <service name="Service4">
+        	<interface.java interface="org.oasisopen.sca.test.Service4"/>
+        </service>
+        <property name="serviceName" source="$serviceName"/>
+    </component>
+
+</composite>

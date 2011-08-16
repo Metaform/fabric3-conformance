@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!--
+Tests that where multiple indirect dependent contributions export conflicting artifacts, the conflict is 
+resolved by explicit import statements in the root contribution 
+
+The concept of the test is that two composite files with the same name in 2 different contributions have 
+different contents - and that only 1 of them will work with this root composite file.
+The 2 conflicting composite files are:
+a) TestComposite5.composite in contribution Contribution1
+b) TestComposite5a.composite in contribution General
+
+The correct one is the one from Contribution1.  The composite from General has a different interface for
+the service it offers - and this should result in an "incompatible interfaces" error if that composite is
+chosen to resolve the reference from this composite.
+
+The sca-contribution.xml file for ASM_12005 contribution has an <import/> for the "test2" namespace that
+explicitly references the Contribution1 contribution - and so only Contribution1 should be used to resolve
+artifacts in that namespace. 
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test2="http://docs.oasis-open.org/ns/opencsa/scatests/2009032"
+           name="TEST_ASM_12005">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+			<binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" >
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </reference>
+        <property name="testName">ASM_12005</property>
+    </component>
+
+    <component name="TestComponent1">
+    	<!-- Uses a composite as implementation where there are multiple conflicting versions of
+    	     this composite exist within 2 contributions which are imported by the contribution
+    	     containing TEST_ASM_12005 -->
+		<implementation.composite name="test2:TestComposite5"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+    </component>
+
+</composite>

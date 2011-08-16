@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- Tests that a <component/> <reference/> with @multiplicity=0..1 can be 
+     promoted by a <composite/> <reference/> with @multiplicity=1..1   -->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TEST_ASM_6009">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" />
+        <property name="testName">ASM_6009</property>
+    </component>
+    
+    <!-- Component which uses a composite which has a <reference/> element which
+         has @multiplicity=1..1 and which promotes a component reference which has
+         @multiplicity=0..1 -->
+    <component name="TestComponent1">
+		<implementation.composite name="test:TestComposite23"/>
+		<service name="Service1"/>
+        <property name="serviceName">service1</property>
+        <reference name="Reference1" target="TestComponent2/Service1"/>
+    </component> 
+    
+    <component name="TestComponent2">
+    	<implementation.composite name="test:TestComposite1"/>
+    	<service name="Service1"/>
+    	<property name="serviceName">service2</property>
+    </component>
+  
+</composite>

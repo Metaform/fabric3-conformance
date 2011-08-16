@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ASCII"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+Definitions file containing
+	1 intent definition
+	1 policySet definition
+    other elements which violate the schema for <definitions/>
+-->
+<definitions 	xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+				xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912" 
+				targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903">
+
+   	<!-- These elements are invalid here -->
+	<component name="TestClient">
+		<implementation.composite name="test:TestClient_0003"/>
+		<service name="TestInvocation">
+			<interface.java interface="test.TestInvocation"/>
+			<binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" />
+        <property name="testName">ASM_5003</property>
+    </component>
+	   
+    <intent name="Fred" constrains="sca:binding" intentType="interaction"/>
+    
+   <!-- A policySet which claims to satisfy the user-defined intent "Fred" -->
+   <policySet name="PolicySet1" provides="test:Fred" appliesTo="//service|//reference">
+      <!-- This policySet intentionally left empty -->
+      <!-- ...it is valid for a policySet to contain no concrete policy statements -->
+   </policySet>
+   
+</definitions>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- An example of a composite which has 
+	 1 service with remotable Service1 interface
+     1 reference with multiplicity 1..1 with remotable Service1 interface
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TestComposite4">
+           
+	<service name="Service1" promote="Composite4Component1/Service1">
+		<interface.java interface="org.oasisopen.sca.test.Service1"/>
+	</service>
+
+    <property name="serviceName" type="xsd:string"/>
+ 
+    <component name="Composite4Component1">
+		<implementation.java class="org.oasisopen.sca.test.Service1Impl2"/>
+        <service name="Service1">
+        	<interface.java interface="org.oasisopen.sca.test.Service1"/>
+        </service>
+        <property name="serviceName" source="$serviceName"/>
+        <reference name="reference1"/>
+    </component>
+    
+    <reference name="Reference1" promote="Composite4Component1/reference1" multiplicity="1..1">
+    	<interface.java interface="org.oasisopen.sca.test.Service1"/>
+    </reference>
+    
+</composite>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ASCII"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- sca-contribution for testcase ASM_12007 -->
+<contribution 
+	xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+	xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903">
+
+	<import namespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"/>
+	<!-- The import for the namespace http://docs.oasis-open.org/ns/opencsa/scatests/2009032 is handled through multiple import
+	     declarations each with a specific location as the target.  The ordering is supposed to
+	     be significant and the artifacts should be searched for in the order of the order of the
+	     import statements here.  The test is set up so that an artifact (test2:TestComposite5) is present in both target
+	     contributions, but that the version of the artifact in the first contribution (General) is invalid
+	     and will cause the testcase to fail.
+	 -->
+	<import namespace="http://docs.oasis-open.org/ns/opencsa/scatests/2009032" location="general-1.0.0-SNAPSHOT.jar"/>
+	<import namespace="http://docs.oasis-open.org/ns/opencsa/scatests/2009032" location="contribution1-1.0.0-SNAPSHOT.jar"/>
+	<import namespace="http://test.sca.oasisopen.org/"/> 							<!-- WSDL namespace -->
+	
+</contribution>

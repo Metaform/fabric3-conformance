@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+	 Tests that where a <composite/> has multiple <service/> subelements 
+     that the @name attributes are unique across those subelements    
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="TEST_ASM_6002">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" />
+        <property name="testName">ASM_6002</property>
+    </component>
+    
+    <!-- Component which uses a composite which has 2 <service/> subelements with
+         the same @name attribute -->
+    <component name="TestComponent1">
+		<implementation.composite name="test:TestComposite16"/>
+        <property name="serviceName">service1</property>
+    </component> 
+  
+</composite>

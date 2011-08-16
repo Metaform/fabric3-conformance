@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ASCII"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- sca-contribution for the Contribution1 contribution-->
+<contribution 
+	xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+	xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903">
+
+	<import namespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"/>		<!-- Composites -->
+	<import namespace="http://test.sca.oasisopen.org/"/>							<!-- WSDL files -->
+
+	<export namespace="http://docs.oasis-open.org/ns/opencsa/scatests/2009032"/>	<!-- Composites 2nd namespace -->
+		
+</contribution>

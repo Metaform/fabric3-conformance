@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+	 Tests that where an SCA contribution contains two <composite/> elements with 
+	 the same name and same targetNamespace that an SCA application using that 
+	 composite does not run and that the SCA runtime reports an error    
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="TEST_ASM_6001">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" />
+        <property name="testName">ASM_6001</property>
+    </component>
+    
+    <!-- Component which uses a composite as its implementation where the contribution 
+         contains 2 <composite/> artifacts which have identical names and targetNamspaces -->
+    <component name="TestComponent1">
+		<implementation.composite name="test:DuplicateComposite"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+    </component> 
+  
+</composite>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- Tests that when a first <composite/> contains a <wire/> element which has a 
+     @source attribute referencing a <component/> <reference/> in a second <composite/> 
+     and a @target attribute referencing a <component/> <service/> element also in 
+     that second <composite>, where the second composite is referenced by an <include/> 
+     element in the first <composite/>, then the wire successfully connects the <reference/> 
+     to the <service/> and the client component can invoke operations on the service.  -->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:tns="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TEST_ASM_6027">
+    
+    <!-- include which references a composite containing 2 unwired components -->
+    <include name="test:TestComposite37"/>
+            
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" />
+        <property name="testName">ASM_6027</property>
+    </component>
+    
+    <!-- The wire which links the reference of one component to the service of
+         a second component, where both components are contained in a separate
+         composite, which is referenced by an <include/> in this composite -->
+    <wire source="TestComponent1/Reference1" target="TestComponent2/Service1"/>
+       
+</composite>

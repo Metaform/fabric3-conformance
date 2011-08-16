@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+	Composite which has 
+     1 service
+     1 reference (1..1) implementing interface Service4
+     1 component that checks to see whether the input parameter to an operation of
+     the reference gets modified during the invocation of that operation
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:sample="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TestComposite53">
+           
+	<service name="Service1" promote="Composite53Component1/Service1">
+		<interface.java interface="org.oasisopen.sca.test.Service1"/>
+	</service>
+
+    <property name="serviceName" type="xsd:string"/>
+ 
+    <component name="Composite53Component1">
+		<implementation.java class="org.oasisopen.sca.test.Service1Impl7"/>
+        <service name="Service1">
+        	<interface.java interface="org.oasisopen.sca.test.Service1"/>
+        </service>
+        <property name="serviceName" source="$serviceName"/>
+        <reference name="reference1">
+        	<interface.java interface="org.oasisopen.sca.test.Service4"/>
+        </reference>
+    </component>
+    
+    <reference name="Reference1" promote="Composite53Component1/reference1" multiplicity="1..1">
+        <interface.java interface="org.oasisopen.sca.test.Service4"/>
+    </reference>
+    
+</composite>

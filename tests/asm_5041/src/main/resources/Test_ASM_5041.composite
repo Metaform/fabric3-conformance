@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+ Tests that where a property element of a component declares a type and has a @source attribute that 
+ gets the value of the property from a composite <property/> element, that the type of the component 
+ property is compatible with the type of the composite property
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="TEST_ASM_5041">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TEST_ASM_5041Component1/Service1" />
+        <property name="testName">ASM_5041</property>
+    </component>
+    
+    <!-- Component which declares @autowire="true" with a <reference/> element without an @autowire attribute
+         and without a @target attribute or <binding/> subelement, with  
+         @multiplicity="0..1" where there is one compatible <component/> <service/> in the same composite -->
+    <component name="TEST_ASM_5041Component1" autowire="true">
+		<implementation.composite name="test:TestComposite8"/>
+		<service name="Service1"/>
+        <property name="serviceName">service1</property>
+        <reference name="Reference1" multiplicity="0..1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </reference>
+    </component> 
+    
+    <!-- This is a component that has a service that is compatible with the reference of TEST_ASM_5041Component1 -->
+    <component name="TEST_ASM_5041Component2">
+		<implementation.composite name="test:TestComposite1"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">second</property>
+    </component>
+    
+</composite>

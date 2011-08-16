@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- Composite that provides a single service with the extended
+     Service1Superset interface -->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:sample="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TestComposite9">
+           
+	<service name="Service1Superset" promote="Composite9Component1/Service1Superset">
+		<interface.java interface="org.oasisopen.sca.test.Service1Superset"></interface.java>
+	</service>
+
+    <property name="serviceName" type="xsd:string"/>
+ 
+    <component name="Composite9Component1">
+		<implementation.java class="org.oasisopen.sca.test.Service1SupersetImpl"/>
+        <service name="Service1Superset">
+        	<interface.java interface="org.oasisopen.sca.test.Service1Superset"></interface.java>
+        </service>
+        <property name="serviceName" source="$serviceName"/>
+    </component>
+
+</composite>

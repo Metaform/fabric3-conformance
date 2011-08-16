@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+ SCA Assembly test suite
+ Property value file for a multi valued property with a complex XML type    
+-->
+<values xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+        targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+        xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903">
+	<test:globalElement1>
+		<test:firstData>Sample first data</test:firstData>
+		<test:secondData>Sample second data</test:secondData>
+	</test:globalElement1>
+	<test:globalElement1>
+		<test:firstData>Alternate first data</test:firstData>
+		<test:secondData>Alternate second data</test:secondData>
+	</test:globalElement1>
+</values>

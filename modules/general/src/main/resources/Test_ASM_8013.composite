@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+Tests that where the <implementation/> of a component with a <service/> with an <interface/> with 
+a callback, the implementation can invoke operations of the callback interface an arbitrary number of times
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TEST_ASM_8013">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TEST_ASM_8013Component1/Service1" />
+        <property name="testName">ASM_8013</property>
+    </component>
+    
+    <!-- Component which has a service with an interface which is remotable and
+         which has a reference which uses an interface with a callback -->
+    <component name="TEST_ASM_8013Component1">
+		<implementation.composite name="test:TestComposite54"/>
+		<service name="Service1">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+		</service>
+        <property name="serviceName">service1</property>
+        <reference name="Reference1" target="TEST_ASM_8013Component2/Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service5)"
+			                callbackInterface="http://test.sca.oasisopen.org/#wsdl.porttype(Service5Callback)"/>
+        </reference>
+    </component> 
+    
+    <!-- Component with a service with an interface which is remotable and no references
+         The implementation invokes the callback a number of times -->
+    <component name="TEST_ASM_8013Component2">
+		<implementation.composite name="test:TestComposite65"/>
+		<service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service5)"
+			                callbackInterface="http://test.sca.oasisopen.org/#wsdl.porttype(Service5Callback)"/>
+		</service>
+        <property name="serviceName">service2</property>
+    </component>  
+</composite>

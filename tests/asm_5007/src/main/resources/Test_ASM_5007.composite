@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *     
+-->
+<!-- 
+ Test that the @name attribute of a <reference/> element of a 
+ component is not equal to the @name attribute of any other 
+ <reference/> element of the same component   
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="TEST_ASM_5007">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="Test_ASM_5007Component1/Service1" />
+        <property name="testName">ASM_5007</property>
+    </component>
+    
+    <component name="Test_ASM_5007Component1">
+		<implementation.composite name="test:TestComposite3"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+        <!-- Two references with the same name - the implementation also has
+             two references of the same name so that the component type
+             matches the configuration of the component -->
+        <reference name="Reference1" target="Test_ASM_5007Component2/Service1"/>
+        <reference name="Reference1" target="Test_ASM_5007Component2/Service1"/>
+    </component>
+
+    <component name="Test_ASM_5007Component2">
+		<implementation.composite name="test:TestComposite1"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service2</property>
+    </component>
+    
+</composite>

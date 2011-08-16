@@ -1,0 +1,24 @@
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+ * This DTD forms part of the SCA Assembly Test Suite.
+ * It declares a number of XML Entities which are used in Entity References in some of the
+ * composites that are artifacts used in the testcases.
+ *
+ * The values declared in the Entity References are intended to reflect SCA runtime specific
+ * values for certain aspects of the composites at runtime - in particular addresses of some
+ * services.
+ *
+ * It is permitted - indeed it is expected - that an SCA runtime provider will MODIFY the values
+ * declared for the Entity References to match the values which would be expected when running the
+ * SCA Assembly test suite against a given SCA runtime.  The values held in the this file are
+ * examples, derived from running the test suite against the Apache Tuscany SCA runtime.   
+-->
+<!-- Address of the Web service provided by component "TEST_ASM_5032Component2" in Test_ASM_5032 composite -->
+<!ENTITY ws_addr_5032 "http://localhost:8080/TEST_ASM_5032Component2/Service1/binding2">
+<!-- Address of the Web service provided by component "TestComponent2" in Test_ASM_5034 composite -->
+<!ENTITY ws_addr_5034 "http://localhost:8080/TestComponent2/Service1/second">

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+Tests that when an <interface/> element of a <component/> <reference/> does not declare a 
+callback interface that the  <composite/> <reference/> element which promotes the <component/> <reference/> 
+also does not declare a callback interface
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="TEST_ASM_8012">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TEST_ASM_8012Component1/Service1" />
+        <property name="testName">ASM_8012</property>
+    </component>
+    
+    <!-- Component which has a service with an interface which is remotable and
+         which has a reference which uses an interface with a callback -->
+    <component name="TEST_ASM_8012Component1">
+		<implementation.composite name="test:TestComposite64"/>
+		<service name="Service1">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+		</service>
+        <property name="serviceName">service1</property>
+        <!-- The underlying composite has a callback declared for this reference which
+             has a callback interface declared although the promoted component reference
+             has no callback interface declared.
+             multiplicity="0..1" means that it does not need to be wired -->
+        <reference name="Reference1" target="TEST_ASM_8012Component2/Service1"
+        	multiplicity="0..1">
+        </reference>
+    </component> 
+    
+</composite>

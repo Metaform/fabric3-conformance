@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- Composite with 1 service which has a remotable interface with 1 operation
+     and with 1 reference that has an interface with a callback
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:sample="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TestComposite60">
+           
+	<service name="Service1" promote="TestComposite60TestComponent1/Service1">
+		<interface.java interface="org.oasisopen.sca.test.Service1"/>
+	</service>
+
+    <property name="serviceName" type="xsd:string"/>
+    
+    <component name="TestComposite60TestComponent1">
+		<implementation.java class="org.oasisopen.sca.test.Service1Callback9Impl"/>
+        <service name="Service1">
+        	<interface.java interface="org.oasisopen.sca.test.Service1"/>
+        </service>
+        <property name="serviceName" source="$serviceName"/>
+        <reference name="reference1">
+        	<interface.java interface="org.oasisopen.sca.test.Service9"/>
+        </reference>
+    </component>
+    
+    <reference name="Reference1" promote="TestComposite60TestComponent1/reference1" multiplicity="1..1">
+    	<interface.java interface="org.oasisopen.sca.test.Service9"/>
+    </reference>
+   
+</composite>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+   Tests that when a <wire/> element connects a component <reference/> to a component <service/>, 
+   that the interface of the service is a compatible superset of the interface of the reference   
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:tns="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TEST_ASM_6034">
+           
+    <component name="TestClient">
+		<implementation.composite name="tns:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TEST_ASM_6034Component1/Service1" />
+        <property name="testName">ASM_6034</property>
+    </component>
+    
+    <component name="TEST_ASM_6034Component1">
+		<implementation.composite name="tns:TestComposite4"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+        <reference name="Reference1"/>
+    </component> 
+    
+    <!-- Here is a wire that connects the reference TEST_ASM_6034Component1/Reference1 -->
+    <wire source="TEST_ASM_6034Component1/Reference1" target="TEST_ASM_6034Component2/Service1Superset"/>
+    
+    <component name="TEST_ASM_6034Component2">
+		<implementation.composite name="tns:TestComposite9"/>
+        <service name="Service1Superset">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1Superset)"/>
+        </service>
+        <property name="serviceName">service2</property>
+    </component>
+     
+</composite>

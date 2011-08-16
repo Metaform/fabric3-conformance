@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- sca-contribution for testcase ASM_12009 -->
+<contribution 
+	xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+	xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903">
+
+	<import namespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"/>
+	<!-- The test is set up so that the artifact in namespace http://docs.oasis-open.org/ns/opencsa/scatests/2009032 is NOT present in an
+	     exporting contribution but IS also present in this importing contribution, and it is expected
+	     that the version in this contribution will be used to resolve a dependency
+	-->
+	<import namespace="http://docs.oasis-open.org/ns/opencsa/scatests/2009032" location="contribution1-1.0.0-SNAPSHOT.jar"/>	<!-- Namespace for Composite66 -->
+	<import namespace="http://test.sca.oasisopen.org/"/> 													<!-- WSDL namespace -->	
+	
+</contribution>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- Tests that where a <component/> <property/> has its value set by means 
+     of a child element that is NOT a <value/> element, that a) the type of 
+     the <property/> element is declared as an XML Schema global element by 
+     its @element attribute and that the child element is an instance of that 
+     global element   -->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TEST_ASM_5026">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" />
+        <property name="testName">ASM_5026</property>
+    </component>
+    
+    <component name="TestComponent1">
+		<implementation.composite name="test:TestComposite13"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+        <!-- Property with complex type with a value declared using a subelement 
+             with the correct XSD global element type -->
+        <property name="complexType" element="test:globalElement1">
+            <test:globalElement1>
+            	<test:firstData>complex1</test:firstData>
+            	<test:secondData>complex2</test:secondData>
+            </test:globalElement1>
+        </property>
+    </component> 
+    
+</composite>

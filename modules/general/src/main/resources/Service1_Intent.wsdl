@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+ * WSDL version of the Service1_Intent interface 
+-->
+<!--
+	WSDL for the Service1_Intent interface
+	1 operation "operation1"
+	- 1 string input parameter
+	- 1 string output parameter 
+	portType has @requires="confidentiality" applied
+-->
+<wsdl:definitions name="Service1_IntentService" 
+	targetNamespace="http://test.sca.oasisopen.org/" 
+	xmlns:tns="http://test.sca.oasisopen.org/" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="unqualified" 
+    	targetNamespace="http://test.sca.oasisopen.org/" 
+    	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    	<xs:element name="operation1Response">
+    		<xs:complexType>
+    			<xs:sequence>
+    				<xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+    			</xs:sequence>
+    		</xs:complexType>
+    	</xs:element>
+    	<xs:element name="operation1">
+    		<xs:complexType>
+    			<xs:sequence>
+    				<xs:element minOccurs="0" name="arg0" nillable="true" type="xs:string"/>
+    			</xs:sequence>
+    		</xs:complexType>
+    	</xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="operation1Response">
+    <wsdl:part name="operation1Response" element="tns:operation1Response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="operation1">
+    <wsdl:part name="operation1" element="tns:operation1">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Service1_Intent" sca:requires="sca:confidentiality">
+    <wsdl:operation name="operation1">
+      <wsdl:input message="tns:operation1">
+    </wsdl:input>
+      <wsdl:output message="tns:operation1Response">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

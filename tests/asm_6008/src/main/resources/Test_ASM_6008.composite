@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+	 Tests that where a <composite/> <reference/> has no <interface/> subelement, 
+     and that <reference/> promotes 2 or more <component/> <reference/>s, that the 
+     <interface/> declared on each of the <component/> <reference/>s are the same   
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="TEST_ASM_6008">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TEST_ASM_6008Component1/Service1" />
+        <property name="testName">ASM_6008</property>
+    </component>
+    
+    <!-- Component which uses a composite which has a <reference/> element which
+         promotes multiple component references which use different interfaces -->
+    <component name="TEST_ASM_6008Component1">
+		<implementation.composite name="test:TestComposite22"/>
+		<service name="Service1"/>
+        <property name="serviceName">service1</property>
+        <reference name="Reference1" target="TEST_ASM_6008Component2/Service1"/>
+    </component> 
+    
+    <component name="TEST_ASM_6008Component2">
+    	<implementation.composite name="test:TestComposite1"/>
+    	<service name="Service1"/>
+    	<property name="serviceName">service2</property>
+    </component>
+  
+</composite>

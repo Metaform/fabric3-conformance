@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+	 A composite which has a <reference/> element with @requires
+     declared with two intents which are mutually exclusive   
+-->
+<!-- "propagatesTransaction" and "suspendsTransaction" are used as the mutually
+     exclusive pair of intents -->     
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TestComposite40">
+           
+	<service name="Service1" promote="Composite40Component1/Service1">
+		<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+	</service>
+
+    <property name="serviceName" type="xsd:string"/>
+ 
+    <component name="Composite40Component1">
+		<implementation.composite name="test:TestComposite4"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName" source="$serviceName"/>
+        <reference name="Reference1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </reference>
+    </component>
+   
+    <!-- @promote deliberately incorrect - component names are non-existent -->
+    <reference name="Reference1" requires="suspendsTransaction propagatesTransaction"
+        promote="Composite40Component1/Reference1" multiplicity="1..1">
+        <interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+    </reference>
+    
+</composite>

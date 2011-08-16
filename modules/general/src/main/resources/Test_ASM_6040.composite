@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+   Tests that when a component<reference/> element has a @target attribute containing a single target in 
+   the form "component-name/service-name" and the reference has a policy requirement attached, and 
+   the component with the name "component-name" has a service with the name "service-name" with multiple bindings 
+   one of which has the same policy requirement as the  reference, that the reference is wired to the service 
+   using that binding and is able to invoke it
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:tns="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TEST_ASM_6040">
+           
+    <component name="TestClient">
+		<implementation.composite name="tns:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+		<!-- reference target in the form "component-name/service-name" with a policy requirement -->
+        <reference name="reference1" target="TEST_ASM_6040Component1/Service1" requires="SOAP" />
+        <property name="testName">ASM_6040</property>
+    </component>
+    
+    <!-- Component that has a single service compatible with the reference TestClient/reference1,
+         with 2 bindings, one of which has a policy requirement which matches that of the reference -->
+    <component name="TEST_ASM_6040Component1">
+		<implementation.composite name="tns:TestComposite1"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        	<binding.sca name="fred"/>
+        	<binding.ws name="joe" requires="SOAP"/>
+        </service>
+        <property name="serviceName">service1</property>
+    </component> 
+    
+</composite>

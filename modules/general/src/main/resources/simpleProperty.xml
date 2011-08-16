@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+ SCA Assembly test suite
+ Property value file for a single valued property with a simple XML type    
+-->
+<values xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+        targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903">
+	<value>2.71828</value>
+</values>

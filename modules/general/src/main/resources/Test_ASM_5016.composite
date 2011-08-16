@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- Tests that the interface declared by the <interface/> child element 
+     of a <reference/> of a <component/> is a compatible superset of the 
+     interface declared on the corresponding <reference/> of the 
+     componentType of the <implementation/> of the <component/> -->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TEST_ASM_5016">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TEST_ASM_5016Component1/Service1" />
+        <property name="testName">ASM_5016</property>
+    </component>
+    
+    <component name="TEST_ASM_5016Component1">
+		<implementation.composite name="test:TestComposite4"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+        <reference name="Reference1" target="TEST_ASM_5016Component2/Service1Superset">
+            <!-- Component type has the interface = test.Service1 
+                 - here we use an interface that is a superset -->
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1Superset)"/>
+        </reference>
+    </component>
+    
+    <component name="TEST_ASM_5016Component2">
+		<implementation.composite name="test:TestComposite9"/>
+        <service name="Service1Superset">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1Superset)"/>
+        </service>
+        <property name="serviceName">service2</property>
+    </component>    
+    
+</composite>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!--
+Tests that the Qname of an <intent/> <policySet/> <bindingType/> or <implementationType/> 
+subelement of a <definitions/> element is unique in the Domain
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="TEST_ASM_10001">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+			<binding.ws/>
+		</service>
+		<!-- Reference requires a user-defined intent -->
+        <reference name="reference1" target="TestComponent1/Service1" requires="test:Fred"/>
+        <property name="testName">ASM_10001</property>
+    </component>
+
+    <component name="TestComponent1">
+		<implementation.composite name="test:TestComposite1"/>
+		<!-- Service requires same user-defined intent -->
+        <service name="Service1" requires="test:Fred">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+    </component>
+
+</composite>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!--
+Tests that where a first contribution resolves an artifact reference to an artifact in a second contribution, 
+where the resolved artifact has a further artifact reference, that this reference is resolved through the 
+import statements of the second contribution even if the first contribution has import statements 
+(to different locations) for the same namespace 
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test2="http://docs.oasis-open.org/ns/opencsa/scatests/2009032"
+           name="TEST_ASM_12010">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+			<binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" >
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </reference>
+        <property name="testName">ASM_12010</property>
+    </component>
+
+    <component name="TestComponent1">
+    	<!-- Uses a composite as implementation for which there is an import from a second contribution
+    	     but this target composite in turn uses another composite in the same namespace - the test
+    	     checks whether the second composite is resolved through the imports of the second contribution
+    	     and NOT via the imports of the contribution containing TEST_ASM_12010 
+    	-->
+		<implementation.composite name="test2:TestComposite67"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+    </component>
+
+</composite>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!--
+     This composite file should result in an error on deployment/runtime.
+     interface.java uses the 'callback' attribute defined for wsdl.
+     interface.java element is extensible via attributes only for attributes
+     in a different NS.
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           xmlns:tns="http://oasis.org/opencsa/sca/assembly/tests"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://docs.oasis-open.org/ns/opencsa/sca/200912 http://docs.oasis-open.org/opencsa/sca-assembly/sca-1.1-cd03.xsd"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="Test_ASM_13006">
+
+    <property name="testName" type="xsd:string"/>
+           
+    <component name="TestClient">
+        <implementation.composite name="test:TestClient_0002"/>
+        <service name="TestInvocation">
+            <!-- @callback attribute is not allowed on interface.java -->
+            <interface.java interface="org.oasisopen.sca.test.TestInvocation" callback="test.TestCallback"/>
+            <binding.ws/>
+        </service>
+        <reference name="reference1" target="TestComponent1/Service1">
+            <interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </reference>
+        <property name="testName" source="$testName"/>
+    </component>
+    
+    <component name="TestComponent1">
+		<implementation.composite name="test:TestComposite1"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+    </component>
+
+</composite>
+

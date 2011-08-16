@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!--
+Tests that the @type attribute value of a <property/> element of a <componentType/> is 
+the QName of an XML schema type
+  -->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           name="TEST_ASM_4005">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" />
+        <property name="testName">ASM_4005</property>
+    </component>
+    
+    <!-- Component which uses a composite which has multiple <property/> elements
+         which have the same @name attribute value -->
+    <component name="TestComponent1">
+		<implementation.composite name="test:TestComposite43"/>
+        <property name="serviceName">service1</property>
+        <property name="propertyName" type="sca:Callback">
+           <value requires="foo" policySets="bar">
+              <binding.sca/>
+           </value>
+        </property>
+        <reference name="Reference1" target="TestComponent2/Service1"/>
+    </component> 
+
+    <component name="TestComponent2">
+    	<implementation.composite name="test:TestComposite1"/>
+    	<service name="Service1"/>
+    	<property name="serviceName">service2</property>
+    </component>
+
+</composite>

@@ -75,6 +75,7 @@
 
     <modules>
         <module>modules</module>
+        <module>tests</module>
     </modules>
 
     <scm>

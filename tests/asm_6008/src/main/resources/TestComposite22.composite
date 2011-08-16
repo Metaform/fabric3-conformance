@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+	 Invalid composite which has a <composite/> <reference/> that has no interface
+     declared that promotes 2 <component/> <reference/>s that have different
+     interfaces declared on them   
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TestComposite22">
+           
+	<service name="Service1" promote="Composite22Component1/Service1">
+		<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+	</service>
+
+    <property name="serviceName" type="xsd:string"/>
+ 
+    <component name="Composite22Component1">
+		<implementation.composite name="test:TestComposite4"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName" source="$serviceName"/>
+        <reference name="Reference1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </reference>
+    </component>
+ 
+    <component name="Composite22Component2">
+		<implementation.composite name="test:TestComposite70"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">Composite22-C2</property>
+        <reference name="Reference1">
+            <interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1Superset)"/>
+        </reference>
+    </component>
+    
+    <!-- @promote references 2 component references with different interfaces declared -->
+    <reference name="Reference1" 
+        promote="Composite22Component1/Reference1 Composite22Component2/Reference1" multiplicity="1..1">
+    </reference>
+    
+</composite>

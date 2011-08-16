@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+	 Tests that the @promote attribute of a <composite/> <reference/> contains 
+     one or more URIs that each point to a <reference/> of a <component/> in the 
+     <composite/>  
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="TEST_ASM_6006">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" />
+        <property name="testName">ASM_6006</property>
+    </component>
+    
+    <!-- Component which uses a composite which has a single <service/> subelement 
+         and which has 1 <reference/> subelement which has an invalid URI in its
+         @promote attribute -->
+    <component name="TestComponent1">
+		<implementation.composite name="test:TestComposite20"/>
+		<service name="Service1"/>
+        <property name="serviceName">service1</property>
+        <reference name="Reference1" target="TestComponent2/Service1"/>
+    </component> 
+    
+    <component name="TestComponent2">
+    	<implementation.composite name="test:TestComposite1"/>
+    	<service name="Service1"/>
+    	<property name="serviceName">service2</property>
+    </component>
+  
+</composite>

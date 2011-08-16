@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!--
+Tests that where a <component/> <reference/> is not wired by any explicit means, where the 
+component is at the SCA Domain level that the reference remains unwired and cannot be 
+invoked by the <component/> <implementation/>
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TEST_ASM_12006">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0004"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+			<binding.ws/>
+		</service>
+		<!-- Reference is unwired -->
+        <reference name="reference1" multiplicity="0..1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </reference>
+        <property name="testName">ASM_12006</property>
+    </component>
+
+    <component name="TestComponent1">
+		<implementation.composite name="test:TestComposite1"/>
+		<!-- Service is a potential target for the reference of TestClient -->
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+    </component>
+
+</composite>

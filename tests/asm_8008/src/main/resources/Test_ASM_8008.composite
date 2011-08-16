@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+Tests that when an <interface/> element of a <component/> <reference/> explicitly declares both a 
+forward interface and a callback interface that the callback interface is compatible with the 
+callback interface of the <componentType/> <reference/> element of the <implementation/> used by 
+the <component/>
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="TEST_ASM_8008">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" />
+        <property name="testName">ASM_8008</property>
+    </component>
+    
+    <!-- Component which has a service with an interface which is remotable and
+         which has a reference which uses an interface with a callback -->
+    <component name="TestComponent1">
+		<implementation.composite name="test:TestComposite54"/>
+		<service name="Service1">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+		</service>
+        <property name="serviceName">service1</property>
+        <reference name="Reference1" target="TestComponent2/Service1">
+            <!-- The callback interface here does not match that in the underlying composite... -->
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service5)"
+			                callbackInterface="http://test.sca.oasisopen.org/#wsdl.porttype(Service8Callback)"/>        	
+        </reference>
+    </component> 
+    
+    <!-- Component with a service with an interface which is remotable and no references -->
+    <component name="TestComponent2">
+		<implementation.composite name="test:TestComposite55"/>
+		<service name="Service1">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service5)"
+			                callbackInterface="http://test.sca.oasisopen.org/#wsdl.porttype(Service5Callback)"/>			
+		</service>
+        <property name="serviceName">service2</property>
+    </component> 
+</composite>

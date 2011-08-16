@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+A composite which provides 
+	1 service with a callback and no references
+	The implementation calls the callback operations a number of times
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:sample="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TestComposite65">
+           
+	<service name="Service1" promote="TestComposite65TestComponent1/Service5">
+		<interface.java interface="org.oasisopen.sca.test.Service5" callbackInterface="org.oasisopen.sca.test.Service5Callback"/>
+	</service>
+
+    <property name="serviceName" type="xsd:string"/>
+ 
+    <component name="TestComposite65TestComponent1">
+		<implementation.java class="org.oasisopen.sca.test.Service5Impl2"/>
+        <service name="Service5">
+        	<interface.java interface="org.oasisopen.sca.test.Service5" callbackInterface="org.oasisopen.sca.test.Service5Callback"/>
+        </service>
+        <property name="serviceName" source="$serviceName"/>
+    </component>
+
+</composite>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+  Tests that where a <component/> <property/> element has an XML schema simple type and has a @value 
+    attribute declared, that the @value attribute value contains a single value with a type matching the type of the 
+    <property/> element
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TEST_ASM_5038">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TEST_ASM_5038Component1/Service1" />
+        <property name="testName">ASM_5005</property>
+    </component>
+
+    <component name="TEST_ASM_5038Component1">
+		<implementation.composite name="test:TestComposite73"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+        <!-- Invalid property element - @value content is not of the declared type of the property-->
+        <property name="serviceData1" type="xsd:float" value="abcd"/>
+    </component>
+    
+</composite>

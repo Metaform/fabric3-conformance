@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+	 Tests that a <component/> <reference/> with multiplicity ="1..n" is 
+     wired to a <service/> in the same <composite/> or is promoted by a <composite> 
+     <reference/>, when the containing <composite/> is used as an <implementation/>   
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="TEST_ASM_6022">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" />
+        <property name="testName">ASM_6022</property>
+    </component>
+    
+    <!-- Component implemented by a composite which has a component <reference/>
+         with @multiplicity="1..n" which is neither wired nor promoted -->
+    <component name="TestComponent1">
+		<implementation.composite name="test:TestComposite32"/>
+		<service name="Service1"/>
+        <property name="serviceName">service1</property>
+    </component> 
+    
+</composite>

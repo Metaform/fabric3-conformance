@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!--
+Tests that where a contribution has an artifact with an artifact dependency which is resolved via an 
+<import/> declaration to an artifact in a second contribution and the resolved artifact has a further 
+dependency on an artifact that is present in both the original contribution and in the second contribution 
+that the dependency of the resolved artifact is resolved to the artifact in the second contribution 
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test2="http://docs.oasis-open.org/ns/opencsa/scatests/2009032"
+           name="TEST_ASM_12013">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+			<binding.ws/>
+		</service>
+        <reference name="reference1" target="TEST_ASM_12013TestComponent1/Service1" >
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </reference>
+        <property name="testName">ASM_12013</property>
+    </component>
+
+    <component name="TEST_ASM_12013TestComponent1">
+    	<!-- Uses a composite as implementation, TestComposite69, which is imported from another contribution (General).
+    	     The composite in turn depends on a second composite (TestComposite1) which is present both in THIS
+    	     contribution (ASM_12013) and in the contribution containing the implementation composite.
+    	     The version in the second contribution is the version that should be used
+    	-->
+		<implementation.composite name="test2:TestComposite69"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+    </component>
+
+</composite>

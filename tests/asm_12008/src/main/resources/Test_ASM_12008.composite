@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!--
+Tests that where a contribution contains an <import/> declaration which refers to the namespace 
+of a referenced artifact and where the artifact is present in a second contribution which exports 
+the namespace, that the artifact is resolved in the second contribution even though a copy of the 
+artifact exists in the original contribution
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test2="http://docs.oasis-open.org/ns/opencsa/scatests/2009032"
+           name="TEST_ASM_12008">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+			<binding.ws/>
+		</service>
+        <reference name="reference1" target="TEST_ASM_12008TestComponent1/Service1" >
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </reference>
+        <property name="testName">ASM_12008</property>
+    </component>
+
+    <component name="TEST_ASM_12008TestComponent1">
+    	<!-- Uses a composite as implementation where there are multiple conflicting versions of
+    	     this composite - one within a contribution which is imported by the contribution
+    	     containing TEST_ASM_12008 and the other within the contribution containing TEST_ASM_12008.
+    	     It is expected that the version actually imported will cause the test to fail.
+    	-->
+		<implementation.composite name="test2:TestComposite5"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+    </component>
+
+</composite>

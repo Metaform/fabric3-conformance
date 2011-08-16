@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+ Tests that when a component<reference/> element has a @target attribute containing a single target in the form 
+ "component-name/service-name/binding-name" and the component with the name "component-name" has a service with 
+ the name "service-name" which is compatible with the reference, but which does not have a binding with the name 
+ "binding-name", that the reference is not wired to the service and the SCA runtime raises an exception
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:tns="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="TEST_ASM_6039">
+           
+    <component name="TestClient">
+		<implementation.composite name="tns:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+		<!-- reference target in the form "component-name/service-name/binding-name" -->
+        <reference name="reference1" target="TEST_ASM_6039Component1/Service1/harry" />
+        <property name="testName">ASM_6039</property>
+    </component>
+    
+    <!-- Component that has a single service compatible with the reference TestClient/reference1,
+         with 2 bindings, each of which has a name one of which does not match the target name in the reference -->
+    <component name="TEST_ASM_6039Component1">
+		<implementation.composite name="tns:TestComposite1"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        	<binding.sca name="fred"/>
+        	<binding.ws name="joe"/>
+        </service>
+        <property name="serviceName">service1</property>
+    </component> 
+    
+</composite>

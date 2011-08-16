@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+ * WSDL version of the Service1 interface containing a reference
+ * to a schema file through an xsi_schemaLocation attribute
+-->
+<!--
+	xsi:schemaLocation attribute points to Service1a.xsd which is loaded into the
+	public space on the OASIS website:
+	 
+-->
+<wsdl:definitions name="Service1Service" 
+targetNamespace="http://test.sca.oasisopen.org/" 
+xmlns:tns="http://test.sca.oasisopen.org/" 
+xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:SOAP="http://schemas.xmlsoap.org/wsdl/soap/" 
+xmlns:SOAP11="http://schemas.xmlsoap.org/wsdl/soap/"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://test.sca.oasisopen.org/
+   http://www.oasis-open.org/committees/download.php/36425/Service1a.xsd" >
+   <wsdl:message name="operation1Response">
+    <wsdl:part name="operation1Response" element="tns:operation1Response">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="operation1">
+    <wsdl:part name="operation1" element="tns:operation1">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Service1">
+    <wsdl:operation name="operation1">
+      <wsdl:input message="tns:operation1">
+    </wsdl:input>
+      <wsdl:output message="tns:operation1Response">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+
+</wsdl:definitions>

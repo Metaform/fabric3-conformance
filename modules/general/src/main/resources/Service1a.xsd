@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+ * Schema which supports the Service1a WSDL file (testcase ASM_12002)
+-->
+<xs:schema attributeFormDefault="qualified" 
+           elementFormDefault="unqualified" 
+           targetNamespace="http://test.sca.oasisopen.org/" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="operation1Response">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:element name="operation1">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element minOccurs="0" name="arg0" nillable="true" type="xs:string"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+</xs:schema>

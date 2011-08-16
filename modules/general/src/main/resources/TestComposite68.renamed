@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+	Copy of TestComposite5 with a different name, in namespace http://docs.oasis-open.org/ns/opencsa/scatests/2009032 
+	1 service
+    0 references
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/2009032"
+           xmlns:test2="http://oasis/test2"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TestComposite68">
+           
+	<service name="Service1" promote="TestComponent1/Service1">
+		<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+	</service>
+
+    <property name="serviceName" type="xsd:string"/>
+ 
+    <component name="TestComponent1">
+		<implementation.composite name="test2:TestComposite5"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName" source="$serviceName"/>
+    </component>
+
+</composite>

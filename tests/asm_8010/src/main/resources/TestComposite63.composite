@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+A composite which provides:
+	1 service with remotable interface = Service5
+	  - and a callback interface = Service8Callback
+	  - callback interface on the composite service is not compatible with the callback interface 
+	    declared on the promoted component service 
+	0 references
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TestComposite63">
+           
+	<service name="Service1" promote="TestComposite63TestComponent1/Service1">
+		<!-- Callback interface here is not compatible with the callback interface of the promoted service -->
+		<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service5)"
+		                callbackInterface="http://test.sca.oasisopen.org/#wsdl.porttype(Service8Callback)"/>
+	</service>
+
+    <property name="serviceName" type="xsd:string"/>
+ 
+    <component name="TestComposite63TestComponent1">
+		<implementation.composite name="test:TestComposite55"/>
+        <service name="Service1">
+	       	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service5)"
+			                callbackInterface="http://test.sca.oasisopen.org/#wsdl.porttype(Service5Callback)"/>
+        </service>
+        <property name="serviceName" source="$serviceName"/>
+    </component>
+
+</composite>

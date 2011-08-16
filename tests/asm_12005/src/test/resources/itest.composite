@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           xmlns:f3="urn:fabric3.org"
+           xmlns:oasis="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           targetNamespace="urn:fabric3.org"
+           name="TestComposite">
+
+    <include name="oasis:TEST_ASM_12005"/>
+
+    <component name="ClientTest">
+        <f3:junit class="client.ASM12005Client"/>
+        <reference name="invocation">
+            <binding.ws uri="http://localhost:8080/TestInvocation"/>
+        </reference>
+    </component>
+
+
+</composite>

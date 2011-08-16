@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+	Composite which has 
+	1 service with a declared <interface/> that is a compatible subset of the interface of the component service
+      declared in the @promote attribute
+    0 references
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           name="TestComposite18">
+           
+	<service name="Service1" promote="TestComposite18TestComponent1/Service1Superset">
+		<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+	</service>
+	
+    <property name="serviceName" type="xsd:string"/>
+ 
+    <component name="TestComposite18TestComponent1">
+		<implementation.composite name="test:TestComposite9"/>
+        <service name="Service1Superset">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1Superset)"/>
+        </service>
+        <property name="serviceName" source="$serviceName"/>
+    </component>
+
+</composite>

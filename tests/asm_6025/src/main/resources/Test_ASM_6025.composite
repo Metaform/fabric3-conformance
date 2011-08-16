@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *   
+-->
+<!-- 
+	 Tests that when an <include/> element is processed and results in an 
+     invalid <composite/> configuration, then the SCA runtime raises an error 
+     and does not run the resulting composite  
+-->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="TEST_ASM_6025">
+    
+    <!-- Includes a composite that has another component with @name="TestComponent1"
+         resulting in an invalid composite due to 2 components with the same @name -->
+    <include name="test:TestComposite34"/>
+               
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" />
+        <property name="testName">ASM_6025</property>
+    </component>
+    
+    <!-- Component with @name="TestComponent1" -->
+    <component name="TestComponent1">
+		<implementation.composite name="test:TestComposite1"/>
+		<service name="Service1"/>
+        <property name="serviceName">service1</property>
+    </component> 
+
+</composite>

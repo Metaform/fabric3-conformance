@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ *
+ * Copyright(C) OASIS(R) 2009, 2010. All Rights Reserved.
+ * OASIS trademark, IPR and other policies apply.    
+ *     
+-->
+<!-- 
+ Tests that the multiplicity of a <reference/> element of a 
+ <component/>  is 0..n where the multiplicity of the equivalent 
+ <reference/> element in the <componentType/> of the 
+ <implementation/> of the <component/> is 1..1 
+ -->
+<composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
+           targetNamespace="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           xmlns:test="http://docs.oasis-open.org/ns/opencsa/scatests/200903"
+           name="TEST_ASM_5014">
+           
+    <component name="TestClient">
+		<implementation.composite name="test:TestClient_0002"/>
+		<service name="TestInvocation">
+			<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(TestInvocation)"/>
+            <binding.ws/>
+		</service>
+        <reference name="reference1" target="TestComponent1/Service1" />
+        <property name="testName">ASM_5014</property>
+    </component>
+    
+    <component name="TestComponent1">
+		<implementation.composite name="test:TestComposite4"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service1</property>
+        <!-- The multiplicity declared for this reference is 0..n while the multiplicity of
+             the corresponding reference on the componentType of the implementation is 1..1 -->
+        <reference name="Reference1" target="TestComponent2/Service1" multiplicity="0..n">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </reference>
+    </component>
+    
+    <component name="TestComponent2">
+		<implementation.composite name="test:TestComposite1"/>
+        <service name="Service1">
+        	<interface.wsdl interface="http://test.sca.oasisopen.org/#wsdl.porttype(Service1)"/>
+        </service>
+        <property name="serviceName">service2</property>
+    </component>    
+    
+</composite>
