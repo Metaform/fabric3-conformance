@@ -12,7 +12,7 @@ To run the tests, do the following:
 
 1. Checkout Fabric3 and build the source, following the instructions here: http://www.fabric3.org/sourcerepository.html. 
 
-2. Checkout the adapted Conformance Tests and build the source from the root directory using: mvn clean install. You will need to increase the JVM heap settings from the default value if you experience an out of memory error.
+2. Checkout the adapted Conformance Tests and build the source from the root directory using: mvn clean install. You will need to increase the JVM heap settings from the default value if you experience an out of memory error. The build has been verified with Maven 3.0.1.
   
 
 Issues should be reported to the Fabric3 user list: http://xircles.codehaus.org/projects/fabric3/lists.
