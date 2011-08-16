@@ -1,0 +1,22 @@
+I. Introduction
+
+This project contains the complete OASIS SCA 1.1 Assembly Specification Conformance Tests adapted to the Fabric3 runtime. The Conformance Tests are taken from revision 664 of the Oasis repository located at http://tools.oasis-open.org/version-control/svn/sca-assembly. The following modifications have been made to the Conformance Tests:
+
+1. ASM_5023 corrected to add the nonOverridable attribute as specified in ASSEMBLY-265.   
+
+2. ASM 13007 corrected to fix a typographical error. The composite Test_ASM_13007 'multiplicity' is misspelled as 'mulplicity on the reference TestClient#reference1. The misspelling has been corrected.
+
+II. Running the Tests
+
+To run the tests, do the following:
+
+1. Checkout Fabric3 and build the source, following the instructions here: http://www.fabric3.org/sourcerepository.html. 
+
+2. Checkout the adapted Conformance Tests and build the source from the root directory using: mvn clean install. You will need to increase the JVM heap settings from the default value if you experience an out of memory error.
+  
+
+Issues should be reported to the Fabric3 user list: http://xircles.codehaus.org/projects/fabric3/lists.
+
+
+ 
+ 
