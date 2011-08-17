@@ -10,7 +10,7 @@ II. Running the Tests
 
 To run the tests, do the following:
 
-1. Checkout Fabric3 and build the source, following the instructions here: http://www.fabric3.org/sourcerepository.html. 
+1. Checkout the Fabric3 tagged revision from http://svn.codehaus.org/fabric3/modules/tags/sca-1.1-assembly-conformance and build the source. Build instructions canbe found here: http://www.fabric3.org/sourcerepository.html. 
 
 2. Checkout the adapted Conformance Tests and build the source from the root directory using: mvn clean install. You will need to increase the JVM heap settings from the default value if you experience an out of memory error. The build has been verified with Maven 3.0.1.
   
